@@ -1,0 +1,74 @@
+{% include 'top.html' %}
+<div class="content">
+    <div class="container details">
+        
+        
+        {% if genre | length > 0%}
+
+            
+            <h2 class="title"> {{type}}</h2>
+            <br/>
+            <h3>All Item for this Genre</h3>
+            <table class="styled">
+                <thead>
+                <tr>
+                    <td>Item ID</td>
+                    <td>Item Title</td>
+                    <td>Item Type</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for instance in genre %}
+                    {% if type == 'song genre' %}
+                        <tr>
+
+                            <td>{{instance.song_id}}</td>
+                            <td>{{instance.song_title}}</td> 
+                            <td>Song</td>
+
+                        </tr>
+                    
+                    {% elif type == 'podcast genre' %}
+                        <tr>
+
+                            <td>{{instance.podcast_id}}</td>
+                            <td>{{instance.podcast_title}}</td>
+                            <td>Podcast</td>
+
+                        </tr>
+                    
+                    {% elif type == 'film genre' %}
+                        <tr>
+                            <td>{{instance.movie_id}}</td>
+                            <td>{{instance.movie_title}}</td>
+                            <td>Film</td>
+
+                        </tr>
+                    
+                    {% else %}
+                        <h2> no correct genre</h2>
+                    {% endif %}
+                {% endfor %}
+                {% for instance in genre2 %}
+                    {% if type == 'film genre' %}
+
+                    <tr>
+
+                        <td>{{instance.tvshow_id}}</td>
+                        <td>{{instance.tvshow_title}}</td>
+                        <td>TVshow</td>
+
+                    </tr>
+                    
+                    
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        
+        {% else %}
+            <h2 class="title"> Invalid Genre</h2>
+        {% endif %}
+    </div>
+</div>
+{% include 'bottom.html'%}

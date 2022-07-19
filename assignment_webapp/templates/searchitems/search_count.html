@@ -1,0 +1,56 @@
+{% include 'top.html' %}
+<div class="content">
+    <h1 class="title">Search TV Shows</h1>
+
+    <form class="Search" method="POST" action="{{url_for('filter_tvshows_by_count')}}">
+        <input type="text" name="searchterm" placeholder="TV Show" list = "TVshow_title" autofocus required>
+        <datalist id = "TVshow_title">
+            {% for instance in count %}
+            <option>{{instance.tvshow_title}}</option>
+            {% endfor %}
+        </datalist>
+
+        <input type="text" name="input" placeholder="Episode count larger than:" list = "TVshow_count" autofocus required>
+        <datalist id = "TVshow_count">
+            {% for instance in count %}
+            <option>{{instance.count}}</option>
+            {% endfor %}
+        </datalist>
+
+        <input type="text" name="genre_input" placeholder="Genre" list = "TVshow_genre" autofocus required>
+        <datalist id = "TVshow_genre">
+            {% for instance in count %}
+            <option>{{instance.md_value}}</option>
+            {% endfor %}
+        </datalist>
+
+        <button class="flat" type="submit">Search</button>
+    </form>
+
+    {% if count | length > 0 %}
+    <!-- All TV Shows -->
+    <table class="styled">
+        <thead>
+        <tr>
+            <td>TV Show ID</td>
+            <td>TV Show Name</td>
+            <td>TV Show Episode Count</td>
+            <td>TV Show Genre</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for instance in count %}
+        <!-- Each row is a link to each individual tvshow page -->
+        <tr class="clickable-tr" data-href="{{ url_for('single_tvshow', tvshow_id=instance.tvshow_id)}}">
+            <td style="text-align: center">{{ instance.tvshow_id }}</td>
+            <td>{{instance.tvshow_title}}</td>
+            <td>{{instance.count}}</td>
+            <td>{{instance.md_value}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+    {% endif %}
+</div>
+{% include 'bottom.html'%}

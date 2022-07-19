@@ -1,0 +1,33 @@
+{% include 'top.html' %}
+<div class="content">
+    <div class="container details">
+        <h2 class="title"> All Genres</h2>
+        <hr/>
+        <div>
+        <!-- All Albums -->
+            <table class="styled">
+                <thead>
+                    <tr>
+                        <td>MetaData ID</td>
+                        <td>MetaData Type ID</td>
+                        <td>MetaData Value</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for instance in allgenres %}
+                        <!-- Each row is a link to each individual album page -->
+                        <tr class="clickable-tr" data-href="{{ url_for('single_genre', genre_id=instance.md_id)}}">
+                            <td style="text-align: center">{{ instance.md_id }}</td>
+                            <td>{{instance.md_type_id}}</td>
+                            <td>{{instance.md_value}}</td>
+
+                        </tr>
+                    {% endfor %}
+                </tbody>
+    
+            </table>
+    
+        </div>
+    </div>
+</div>
+{% include 'bottom.html'%}
